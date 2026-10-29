@@ -14,5 +14,4 @@ against the six demonstration scenarios, using `scripts/capture_screenshots.py` 
 | `06-tampered-artifact-rejected.png` | Scenario 04 artifact uploaded through the verify form: digest mismatch, Cosign rejects, provenance invalid |
 | `07-dependency-diff.png` | Scenario 03: added `left-pad`, upgraded `debug` and transitive `ms` vs the baseline SBOM |
 | `08-project-analysis-gate-run.png` | Running a release gate from the Project Analysis page |
-
-A GitHub Actions run screenshot is not included yet because the repository has not been published.
+| `09-github-actions-run.png` | Public GitHub Actions run #2 (commit `b9916b7`) with every job passing; captured from github.com after publication |

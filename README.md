@@ -204,7 +204,8 @@ driving Chrome). Scenario data is labelled as demonstration data in the UI.
 | ![Policy failure](screenshots/04-policy-fail-explained.png) **Release Policy Center** - a FAIL decision with per-check status and the exact blocking findings. | ![Signature verified](screenshots/05-signature-verified.png) **Artifact Trust** - signature verified over the actual digest by the native verifier and Cosign. |
 | ![Tampered artifact](screenshots/06-tampered-artifact-rejected.png) **Tampered artifact rejected** - uploaded through the form; digest mismatch, Cosign also rejects, provenance stops at "well-formed". | ![Dependency diff](screenshots/07-dependency-diff.png) **Dependency diff** - added and upgraded packages versus the baseline SBOM (scenario 03). |
 
-A GitHub Actions screenshot will be added once the repository is published and the workflow has run.
+![GitHub Actions run](screenshots/09-github-actions-run.png)
+**CI** - [run #2](https://github.com/ahmedhany-cys/azure-supplychain-sentinel/actions/runs/40856586838) on `main`: lint, tests on Python 3.12 and 3.13 (206 passed, 0 skipped, 93% coverage), self-scan supply-chain gate, Terraform validate and container build all green. Run #1 failed on a real defect (the SBOM command did not create its output directory), which was fixed in the following commit.
 
 ## CLI, API and dashboard
 
@@ -317,9 +318,8 @@ Read [docs/threat-model.md](docs/threat-model.md) and [docs/security-controls.md
   builder ID (`https://sentinel.local/builders/demo-fixture-builder@v1`) and the
   `example.com` source repositories are fictional.
 - The dashboard has no user authentication; run it locally or behind an authenticating proxy.
-- The container image and Azure Terraform are validated in CI/locally (`terraform validate`) but
-  have not been deployed to Azure. Docker was not available on the development machine, so the
-  image build is first exercised by CI.
+- The container image is built and smoke-tested in CI (the demo regression runs inside it), and
+  the Azure Terraform passes `terraform validate`, but nothing has been deployed to Azure.
 
 ## Roadmap
 
