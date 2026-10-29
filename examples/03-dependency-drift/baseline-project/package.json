@@ -1,0 +1,10 @@
+{
+  "name": "notification-service",
+  "version": "3.1.0",
+  "private": true,
+  "description": "Demonstration service for Azure SupplyChain Sentinel (scenario 03 baseline).",
+  "dependencies": {
+    "chalk": "4.1.2",
+    "debug": "4.3.4"
+  }
+}

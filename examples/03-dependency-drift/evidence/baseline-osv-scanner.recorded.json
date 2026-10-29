@@ -1,0 +1,104 @@
+{
+  "recording": {
+    "tool": "osv-scanner",
+    "tool_version": "2.7.0",
+    "captured_at": "2026-10-29T09:10:55+00:00",
+    "command": [
+      "osv-scanner",
+      "scan",
+      "source",
+      "--format",
+      "json",
+      "--all-packages",
+      "--lockfile",
+      "package-lock.json"
+    ],
+    "exit_code": 0,
+    "targets": [
+      "package-lock.json"
+    ],
+    "note": "Recorded for deterministic, offline demonstrations. Re-record with scripts/build_demo_fixtures.py --record-osv."
+  },
+  "output": {
+    "results": [
+      {
+        "source": {
+          "path": "package-lock.json",
+          "type": "lockfile"
+        },
+        "packages": [
+          {
+            "package": {
+              "name": "ansi-styles",
+              "version": "4.3.0",
+              "ecosystem": "npm",
+              "purl": "pkg:npm/ansi-styles@4.3.0?source=PUBLIC_REGISTRY"
+            }
+          },
+          {
+            "package": {
+              "name": "chalk",
+              "version": "4.1.2",
+              "ecosystem": "npm",
+              "purl": "pkg:npm/chalk@4.1.2?source=PUBLIC_REGISTRY"
+            }
+          },
+          {
+            "package": {
+              "name": "color-convert",
+              "version": "2.0.1",
+              "ecosystem": "npm",
+              "purl": "pkg:npm/color-convert@2.0.1?source=PUBLIC_REGISTRY"
+            }
+          },
+          {
+            "package": {
+              "name": "color-name",
+              "version": "1.1.4",
+              "ecosystem": "npm",
+              "purl": "pkg:npm/color-name@1.1.4?source=PUBLIC_REGISTRY"
+            }
+          },
+          {
+            "package": {
+              "name": "debug",
+              "version": "4.3.4",
+              "ecosystem": "npm",
+              "purl": "pkg:npm/debug@4.3.4?source=PUBLIC_REGISTRY"
+            }
+          },
+          {
+            "package": {
+              "name": "has-flag",
+              "version": "4.0.0",
+              "ecosystem": "npm",
+              "purl": "pkg:npm/has-flag@4.0.0?source=PUBLIC_REGISTRY"
+            }
+          },
+          {
+            "package": {
+              "name": "ms",
+              "version": "2.1.2",
+              "ecosystem": "npm",
+              "purl": "pkg:npm/ms@2.1.2?source=PUBLIC_REGISTRY"
+            }
+          },
+          {
+            "package": {
+              "name": "supports-color",
+              "version": "7.2.0",
+              "ecosystem": "npm",
+              "purl": "pkg:npm/supports-color@7.2.0?source=PUBLIC_REGISTRY"
+            }
+          }
+        ]
+      }
+    ],
+    "experimental_config": {
+      "licenses": {
+        "summary": false,
+        "allowlist": null
+      }
+    }
+  }
+}

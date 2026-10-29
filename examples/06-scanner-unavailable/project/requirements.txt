@@ -1,0 +1,15 @@
+# Resolved with pip-compile 7.6.2 (binary wheels only) on 2026-10-29 from requirements.in.
+--only-binary :all:
+
+certifi==2026.10.23
+    # via requests
+charset-normalizer==3.5.2
+    # via requests
+idna==3.20
+    # via requests
+pyyaml==6.0.3
+    # via -r requirements.in
+requests==2.34.2
+    # via -r requirements.in
+urllib3==2.8.0
+    # via requests

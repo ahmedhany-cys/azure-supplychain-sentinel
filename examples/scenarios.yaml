@@ -1,0 +1,55 @@
+# Catalogue of demonstration scenarios and the decision each must produce.
+# `sentinel demo --check` runs all of them and fails if any decision differs;
+# CI runs it as a regression gate.
+scenarios:
+  - id: 01-vulnerable-dependency
+    title: Vulnerable dependency
+    release: 01-vulnerable-dependency/release.yaml
+    expected: FAIL
+    explanation: >-
+      Recorded osv-scanner evidence reports HIGH/CRITICAL advisories (for example
+      PyYAML 5.3.1, CVE-2020-14343) in pinned dependencies. Signature and provenance
+      verify, so the vulnerability rule alone fails the release.
+
+  - id: 02-clean-release
+    title: Clean dependency inventory
+    release: 02-clean-release/release.yaml
+    expected: PASS
+    explanation: >-
+      Valid SBOM, no known vulnerabilities in the recorded scan, signature verified
+      under the trusted demo key and signed provenance bound to the artifact digest.
+
+  - id: 03-dependency-drift
+    title: Unexpected dependency change
+    release: 03-dependency-drift/release.yaml
+    expected: INDETERMINATE
+    explanation: >-
+      Compared with the baseline SBOM, the candidate adds left-pad (not pre-approved),
+      upgrades debug 4.3.4 -> 4.4.1 and, transitively, ms 2.1.2 -> 2.1.3. The new
+      dependency requires manual review, so the gate does not pass automatically.
+
+  - id: 04-tampered-artifact
+    title: Tampered artifact
+    release: 04-tampered-artifact/release.yaml
+    expected: FAIL
+    explanation: >-
+      The tarball was rebuilt after signing. Its SHA-256 no longer matches the signed
+      digest, the pinned expected digest, or the provenance subject.
+
+  - id: 05-missing-provenance
+    title: Missing provenance
+    release: 05-missing-provenance/release.yaml
+    expected: FAIL
+    explanation: >-
+      The artifact is correctly signed, but no build provenance was supplied and the
+      policy requires it (decision.missing_required_evidence = FAIL).
+
+  - id: 06-scanner-unavailable
+    title: External scanner unavailable
+    release: 06-scanner-unavailable/release.yaml
+    expected: INDETERMINATE
+    fault: osv_timeout
+    explanation: >-
+      Fault injection replaces osv-scanner with a stub that never answers; the scan
+      times out after 3 seconds. Every other check passes, but an incomplete scan is
+      never treated as clean, so the decision is INDETERMINATE.

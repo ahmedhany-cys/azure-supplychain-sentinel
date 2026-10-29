@@ -1,0 +1,88 @@
+{
+  "recording": {
+    "tool": "osv-scanner",
+    "tool_version": "2.7.0",
+    "captured_at": "2026-10-29T09:11:02+00:00",
+    "command": [
+      "osv-scanner",
+      "scan",
+      "source",
+      "--format",
+      "json",
+      "--all-packages",
+      "--lockfile",
+      "requirements.txt"
+    ],
+    "exit_code": 0,
+    "targets": [
+      "requirements.txt"
+    ],
+    "note": "Recorded for deterministic, offline demonstrations. Re-record with scripts/build_demo_fixtures.py --record-osv."
+  },
+  "output": {
+    "results": [
+      {
+        "source": {
+          "path": "requirements.txt",
+          "type": "lockfile"
+        },
+        "packages": [
+          {
+            "package": {
+              "name": "certifi",
+              "version": "2026.10.23",
+              "ecosystem": "PyPI",
+              "purl": "pkg:pypi/certifi@2026.10.23"
+            }
+          },
+          {
+            "package": {
+              "name": "charset-normalizer",
+              "version": "3.5.2",
+              "ecosystem": "PyPI",
+              "purl": "pkg:pypi/charset-normalizer@3.5.2"
+            }
+          },
+          {
+            "package": {
+              "name": "idna",
+              "version": "3.20.0",
+              "ecosystem": "PyPI",
+              "purl": "pkg:pypi/idna@3.20.0"
+            }
+          },
+          {
+            "package": {
+              "name": "pyyaml",
+              "version": "6.0.3",
+              "ecosystem": "PyPI",
+              "purl": "pkg:pypi/pyyaml@6.0.3"
+            }
+          },
+          {
+            "package": {
+              "name": "requests",
+              "version": "2.34.2",
+              "ecosystem": "PyPI",
+              "purl": "pkg:pypi/requests@2.34.2"
+            }
+          },
+          {
+            "package": {
+              "name": "urllib3",
+              "version": "2.8.0",
+              "ecosystem": "PyPI",
+              "purl": "pkg:pypi/urllib3@2.8.0"
+            }
+          }
+        ]
+      }
+    ],
+    "experimental_config": {
+      "licenses": {
+        "summary": false,
+        "allowlist": null
+      }
+    }
+  }
+}

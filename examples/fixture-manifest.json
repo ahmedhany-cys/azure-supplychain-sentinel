@@ -1,0 +1,62 @@
+{
+  "generated_at": "2026-10-29T09:10:37+00:00",
+  "scenarios": {
+    "01-vulnerable-dependency": {
+      "artifact_sha256": "7008bd06e1408c89a5f17e69e88b4988947ded1b0425948c364180cb124c7328",
+      "signed_sha256": "7008bd06e1408c89a5f17e69e88b4988947ded1b0425948c364180cb124c7328",
+      "osv": {
+        "file": "osv-scanner.recorded.json",
+        "exit_code": 1,
+        "vulnerability_records": 53
+      }
+    },
+    "02-clean-release": {
+      "artifact_sha256": "efde3d147df97a298199406fe55b794af09eafbe51eb769275f636ed14f81f71",
+      "signed_sha256": "efde3d147df97a298199406fe55b794af09eafbe51eb769275f636ed14f81f71",
+      "osv": {
+        "file": "osv-scanner.recorded.json",
+        "exit_code": 0,
+        "vulnerability_records": 0
+      }
+    },
+    "03-dependency-drift": {
+      "artifact_sha256": "40eb10a83972446dd7201f2cb2cdf16679d080a1f91b9dadf3ad94fb0efc5842",
+      "signed_sha256": "40eb10a83972446dd7201f2cb2cdf16679d080a1f91b9dadf3ad94fb0efc5842",
+      "baseline_sbom_generator": "syft",
+      "baseline_osv": {
+        "file": "baseline-osv-scanner.recorded.json",
+        "exit_code": 0,
+        "vulnerability_records": 0
+      },
+      "osv": {
+        "file": "osv-scanner.recorded.json",
+        "exit_code": 0,
+        "vulnerability_records": 0
+      }
+    },
+    "04-tampered-artifact": {
+      "artifact_sha256": "aef14e5193548c5fbea5f3dd0d9b4a8607373653c02582f9ca3bfd9735e937e3",
+      "signed_sha256": "acf55a04c67acf24b4d5506bd7330511728041b81b7a298f8f874294e66a4956",
+      "osv": {
+        "file": "osv-scanner.recorded.json",
+        "exit_code": 0,
+        "vulnerability_records": 0
+      }
+    },
+    "05-missing-provenance": {
+      "artifact_sha256": "790f67bc64d42afcef9dfacaf94104b7acfd64077e8f607e6ad05a3b416612e1",
+      "signed_sha256": "790f67bc64d42afcef9dfacaf94104b7acfd64077e8f607e6ad05a3b416612e1",
+      "osv": {
+        "file": "osv-scanner.recorded.json",
+        "exit_code": 0,
+        "vulnerability_records": 0
+      }
+    },
+    "06-scanner-unavailable": {
+      "artifact_sha256": "86b5d103ac3e903926b10e2c82a6b0a8f8e45abb2e0a7dd06540ac0fc58d95ef",
+      "signed_sha256": "86b5d103ac3e903926b10e2c82a6b0a8f8e45abb2e0a7dd06540ac0fc58d95ef"
+    }
+  },
+  "signing_tool": "cosign 3.1.4",
+  "demo_public_key_sha256": "466a0b7c11f588155f5c17813237b3b3c5314cee4b8e1a095d98988832dbe2e4"
+}

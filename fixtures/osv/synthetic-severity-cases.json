@@ -1,0 +1,35 @@
+{
+  "recording": {
+    "tool": "osv-scanner",
+    "tool_version": "synthetic",
+    "captured_at": "2026-10-29T00:00:00+00:00",
+    "exit_code": 1,
+    "targets": ["requirements.txt"],
+    "note": "SYNTHETIC test fixture in osv-scanner JSON shape. The advisory IDs are fake and exist only to exercise severity fallbacks (label-only and no severity). Not real vulnerability data."
+  },
+  "output": {
+    "results": [
+      {
+        "source": {"path": "requirements.txt", "type": "lockfile"},
+        "packages": [
+          {
+            "package": {"name": "example-lib", "version": "1.0.0", "ecosystem": "PyPI"},
+            "vulnerabilities": [
+              {"id": "GHSA-test-label-only", "summary": "Synthetic advisory with only a label",
+               "database_specific": {"severity": "MODERATE"},
+               "affected": [{"package": {"name": "example-lib", "ecosystem": "PyPI"},
+                             "ranges": [{"type": "ECOSYSTEM", "events": [{"introduced": "0"}, {"fixed": "1.0.1"}]}]}]},
+              {"id": "GHSA-test-no-severity", "summary": "Synthetic advisory with no severity data",
+               "affected": [{"package": {"name": "example-lib", "ecosystem": "PyPI"},
+                             "ranges": [{"type": "ECOSYSTEM", "events": [{"introduced": "0"}]}]}]}
+            ],
+            "groups": [
+              {"ids": ["GHSA-test-label-only"], "aliases": ["GHSA-test-label-only"], "max_severity": ""},
+              {"ids": ["GHSA-test-no-severity"], "aliases": ["GHSA-test-no-severity"], "max_severity": ""}
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

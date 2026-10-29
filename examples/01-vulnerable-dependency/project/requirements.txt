@@ -1,0 +1,19 @@
+# Pinned dependency set for demonstration scenario 01. Written by hand in the
+# pip-compile annotation format; versions are real releases chosen because they
+# have publicly disclosed vulnerabilities. Do not install these versions.
+certifi==2020.12.5
+    # via requests
+chardet==4.0.0
+    # via requests
+idna==2.10
+    # via requests
+jinja2==2.11.2
+    # via -r requirements.in
+markupsafe==1.1.1
+    # via jinja2
+pyyaml==5.3.1
+    # via -r requirements.in
+requests==2.25.1
+    # via -r requirements.in
+urllib3==1.26.4
+    # via requests
