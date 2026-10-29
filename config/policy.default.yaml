@@ -1,0 +1,67 @@
+# Azure SupplyChain Sentinel - default release policy
+#
+# Actions: block (FAIL) | review (manual review; INDETERMINATE by default) | warn | info
+# Decision: any block -> FAIL; else any required check incomplete -> INDETERMINATE;
+#           else any review -> INDETERMINATE (decision.review_outcome); else PASS.
+#
+# TRUST ANCHORS BELOW ARE FOR THE BUNDLED DEMONSTRATION ONLY.
+# The demo key's private half was destroyed after the fixtures were signed
+# (see scripts/build_demo_fixtures.py), so nobody can produce new signatures with it.
+# Replace `signing.trusted_keys` and `provenance.trusted_builders` before real use.
+apiVersion: sentinel.dev/v1
+kind: ReleasePolicy
+metadata:
+  name: default-release-policy
+  version: "1.0.0"
+  owner: platform-security
+  description: Baseline gate for production releases of internal services.
+
+required_checks:
+  - sbom
+  - vulnerability_scan
+  - artifact_signature
+  - provenance
+
+sbom:
+  require_schema_valid: true
+  min_components: 1
+
+vulnerabilities:
+  block_at_or_above: HIGH      # confirmed findings rated HIGH/CRITICAL block the release
+  below_threshold: warn        # MEDIUM/LOW are recorded as warnings
+  unknown_severity: review     # no rating available -> a human decides; never treated as low
+  exceptions: []
+  # - id: GHSA-xxxx-xxxx-xxxx
+  #   package: example-package
+  #   reason: Vulnerable code path not reachable; tracked in SEC-123
+  #   approved_by: security-lead
+  #   expires: 2026-12-31
+
+dependency_changes:
+  added: review                # unexpected new dependencies need a human to confirm them
+  removed: info
+  upgraded: info
+  downgraded: review
+  version_changed: review      # versions that cannot be ordered
+  identifier_changed: review   # same name+version, different package URL/registry
+  scope_changed: info
+  allowed_new_packages: []     # e.g. "pypi:requests", "npm:lodash"
+  denied_packages:
+    - ecosystem: npm
+      name: event-stream
+      reason: Compromised in the 2018 flatmap-stream incident; use an alternative.
+
+signing:
+  trusted_keys:
+    - name: sentinel-demo-release
+      path: keys/sentinel-demo-release.pub
+
+provenance:
+  require_signature: true
+  require_source_match: true
+  trusted_builders:
+    - https://sentinel.local/builders/demo-fixture-builder@v1
+
+decision:
+  review_outcome: INDETERMINATE
+  missing_required_evidence: FAIL

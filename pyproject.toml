@@ -1,0 +1,80 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "azure-supplychain-sentinel"
+version = "0.1.0"
+description = "Software supply-chain release gate: SBOMs, vulnerability evidence, dependency drift, artifact signatures, build provenance and policy decisions."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.12,<3.14"
+authors = [{ name = "Ahmed Hany" }]
+keywords = ["sbom", "supply-chain", "devsecops", "cosign", "osv", "slsa", "cyclonedx"]
+classifiers = [
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Security",
+]
+# Direct dependencies use compatible-release ranges; exact, hash-pinned versions
+# live in requirements/*.txt (generated with pip-compile) and are what CI installs.
+dependencies = [
+  "fastapi~=0.162",
+  "uvicorn~=0.54",
+  "pydantic~=2.14",
+  "python-multipart~=0.0.32",
+  "pyyaml~=6.0",
+  "cryptography~=50.0",
+  "cyclonedx-python-lib[json-validation]~=11.12",
+  "packageurl-python~=0.17",
+  "packaging>=25",
+]
+
+[project.optional-dependencies]
+dashboard = ["streamlit~=1.66", "pandas>=2.2", "altair>=5"]
+dev = [
+  "pytest~=9.2",
+  "pytest-cov~=7.0",
+  "httpx~=0.28",
+  "ruff~=0.17",
+  "pip-tools~=7.6",
+]
+
+[project.scripts]
+sentinel = "sentinel.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["sentinel*"]
+
+[tool.setuptools.package-data]
+sentinel = ["py.typed", "dashboard/assets/*.svg"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = [".venv", "build"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "SIM", "RUF"]
+ignore = [
+  "S603",   # subprocess without shell: all calls go through core.runner with argv lists
+  "S607",   # partial executable path: tool binaries are resolved via shutil.which
+  "RUF012",
+  "E501",   # line length is enforced by `ruff format`
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S105", "S106", "S108", "S311"]
+"scripts/**" = ["S101"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra --strict-markers"
+markers = [
+  "live: requires external tools (syft/osv-scanner/cosign) and/or network access",
+]
+
+[tool.coverage.run]
+source = ["sentinel"]
+omit = ["sentinel/dashboard/*"]
