@@ -1,0 +1,17 @@
+# Copy to terraform.tfvars (git-ignored) and edit. Contains no secrets.
+subscription_id = "00000000-0000-0000-0000-000000000000"
+location        = "westeurope"
+prefix          = "sscs"
+environment     = "dev"
+
+# Free:
+enable_github_oidc = true
+
+# Billable - read docs/azure-deployment.md (cost table) before enabling:
+enable_container_registry = false
+enable_signing_key_vault  = false
+enable_evidence_storage   = false
+enable_container_apps     = false
+
+# Required for the signing key to be created (your own Entra ID object ID):
+# key_vault_admin_object_id = "00000000-0000-0000-0000-000000000000"

@@ -1,0 +1,48 @@
+# Local stack: REST API + dashboard sharing one SQLite volume.
+# Ports are published on 127.0.0.1 only. Nothing here talks to Azure.
+#
+#   docker compose up --build
+#   API docs:   http://127.0.0.1:8000/docs
+#   Dashboard:  http://127.0.0.1:8501
+services:
+  api:
+    build: .
+    image: azure-supplychain-sentinel:local
+    command: ["python", "-m", "sentinel.api"]
+    environment:
+      SENTINEL_API_HOST: 0.0.0.0 # inside the container; host exposure is loopback-only below
+      SENTINEL_API_PORT: "8000"
+      SENTINEL_ALLOWED_ROOTS: /app/examples
+      # SENTINEL_API_TOKEN: set via an untracked .env file to require bearer auth
+      SENTINEL_API_TOKEN: ${SENTINEL_API_TOKEN:-}
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - sentinel-data:/data
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+
+  dashboard:
+    image: azure-supplychain-sentinel:local
+    depends_on: [api]
+    command: ["streamlit", "run", "sentinel/dashboard/app.py", "--server.address=0.0.0.0",
+              "--server.port=8501"]
+    environment:
+      SENTINEL_ALLOWED_ROOTS: /app/examples
+    ports:
+      - "127.0.0.1:8501:8501"
+    volumes:
+      - sentinel-data:/data
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  sentinel-data:
