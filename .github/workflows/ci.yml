@@ -20,6 +20,12 @@ on:
 permissions:
   contents: read
 
+# Explicit `bash` gives `-eo pipefail`; the implicit default is only `bash -e`, which would
+# let a failing command piped into `tee` pass unnoticed.
+defaults:
+  run:
+    shell: bash
+
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true

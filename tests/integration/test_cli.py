@@ -105,3 +105,9 @@ def test_demo_check(settings, monkeypatch):
 def test_policy_command(capsys):
     assert cli.main(["policy"]) == 0
     assert json.loads(capsys.readouterr().out)["name"] == "default-release-policy"
+
+
+def test_sbom_output_creates_parent_directories(tmp_path):
+    out = tmp_path / "reports" / "nested" / "sbom.cdx.json"
+    assert cli.main(["sbom", str(EXAMPLES / "02-clean-release" / "project"), "-o", str(out)]) == 0
+    assert json.loads(out.read_text())["bomFormat"] == "CycloneDX"

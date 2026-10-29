@@ -101,7 +101,9 @@ def cmd_sbom(args: argparse.Namespace) -> int:
     build = build_sbom(Path(args.project).resolve(), settings)
     info = build.inventory.sbom
     if args.output:
-        Path(args.output).write_bytes(build.raw or b"")
+        output = Path(args.output)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_bytes(build.raw or b"")
     print(
         f"generator: {info.generator} {info.generator_version or ''} ({info.mode.value})",
         file=sys.stderr,

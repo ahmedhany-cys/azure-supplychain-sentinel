@@ -230,12 +230,12 @@ Artifact Trust · Release Policy Center · Audit & Reports.
 ## Testing
 
 ```bash
-pytest              # 205 tests: 155 unit, 35 integration, 15 regression
+pytest              # 206 tests: 155 unit, 36 integration, 15 regression
 pytest --cov        # coverage report
 pytest -m "not live"  # skip tests that need network access to OSV.dev
 ```
 
-Measured locally on 2026-10-29: 205 passed on Python 3.12 and on Python 3.13; 93% line coverage
+Measured locally on 2026-10-29: 206 passed on Python 3.12 and on Python 3.13; 93% line coverage
 of the `sentinel` package (the Streamlit page code in `sentinel/dashboard/` is excluded from
 coverage measurement; its data-shaping logic is unit-tested separately). Tests that need Syft,
 OSV-Scanner or Cosign skip automatically when the tool is absent; the regression suite runs every
@@ -336,7 +336,7 @@ Read [docs/threat-model.md](docs/threat-model.md) and [docs/security-controls.md
 > dependency drift against a baseline, verifies Cosign/Sigstore artifact signatures and DSSE-signed
 > SLSA v1 provenance against a policy trust store, and produces auditable PASS/FAIL/INDETERMINATE
 > decisions that fail closed on missing or incomplete evidence. FastAPI + Streamlit + SQLite;
-> 205 automated tests (93% coverage of core code) including six reproducible attack and failure
+> 206 automated tests (93% coverage of core code) including six reproducible attack and failure
 > scenarios; hardened GitHub Actions pipeline (SHA-pinned actions, hash-pinned dependencies,
 > read-only token); optional least-privilege Azure infrastructure in Terraform with
 > cost-gated feature flags.
